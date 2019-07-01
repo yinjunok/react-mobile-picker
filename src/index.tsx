@@ -37,6 +37,6 @@ ReactMobilePick.defaultProps = {
   onChange: noop,
   onCancel: noop,
   onConfirm: noop,
-};
+}
 
 export default ReactMobilePick
