@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-react-hooks"
+  ],
+  "rules": {
+    "quotemark": [true, "single"],
+    "ordered-imports": false,
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "object-literal-sort-keys": false,
+    "react-hooks-nesting": "error",
+    "semicolon": [true, "never"]
+  }
+}
