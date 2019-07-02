@@ -1,39 +1,40 @@
 import * as React from 'react'
 import Mask from './Mask'
 import Panel from './Panel'
-import Picker from './Picker'
+import Picker, { IPickerProps } from './Picker'
+import Header, { IHeaderProps } from './Header'
+import noop from './noop'
 import './style.less'
 
-const { useEffect, useState } = React
-
-interface IReactMobilePickProps {
+interface IReactMobilePickProps extends IHeaderProps, IPickerProps {
   show?: boolean
-  onChange?: () => void
-  onConfirm?: () => void
-  onCancel?: () => void
 }
 
 function ReactMobilePick({
   show,
+  title,
   onChange,
   onCancel,
   onConfirm,
 }: IReactMobilePickProps) {
   return (
     <>
-      <Mask show={show as boolean} />
       <Panel show={show as boolean}>
-        <Picker />
+        <>
+          <Header onCancel={onCancel} onConfirm={onConfirm}>
+            {title}
+          </Header>
+          <Picker onChange={onChange} />
+        </>
       </Panel>
+      <Mask show={show as boolean} />
     </>
   )
 }
 
-// tslint:disable-next-line
-const noop = () => {}
-
 ReactMobilePick.defaultProps = {
   show: true,
+  title: '标题',
   onChange: noop,
   onCancel: noop,
   onConfirm: noop,
