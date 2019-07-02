@@ -44,7 +44,9 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
     const i = Math.round((itemHeight * index + move) / itemHeight)
     const moveIndex = limitRange(i, minIndex, maxIndex)
     if (moveIndex !== index) {
-      console.log(column[2 - moveIndex], 2 - moveIndex)
+      // 换成正常的数组索引
+      const arrIndex = 2 - moveIndex
+      console.log(column[arrIndex], arrIndex)
     }
 
     setIndex(moveIndex)
