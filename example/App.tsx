@@ -13,6 +13,7 @@ import ReactMobilePick from '../src/index'
 class App extends React.Component {
   public state = {
     show: false,
+    picked: [],
     columns: [
       ['湖北', '湖南', '广州', '广西', '福建'],
       ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚'],
@@ -20,11 +21,14 @@ class App extends React.Component {
   }
 
   public render() {
-    const {show, columns} = this.state
+    const { show, columns, picked } = this.state
 
     return (
       <div className='demo'>
-        <button onClick={this.show}>显示</button>
+        <button onClick={this.show}>显示</button> <br />
+        {
+          <pre>{JSON.stringify(picked, null, 2)}</pre>
+        }
         <ReactMobilePick
           show={show}
           columns={columns}
@@ -47,10 +51,12 @@ class App extends React.Component {
     })
   }
 
-  private confirm(...p) {
-    console.log(p)
+  private confirm = (picked) => {
+    this.setState({
+      picked,
+      show: false,
+    })
   }
 }
 
 export default App
-// export default App;
