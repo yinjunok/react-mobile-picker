@@ -1,3 +1,5 @@
+![运行截图](./snapshot/snapshot.gif)
+
 ## 备忘 puppeteer 安装
 
 1. 不自动下载 Chromium
