@@ -1,19 +1,19 @@
 import * as React from 'react'
 import PickerList from './PickerList/PickerList'
+import { IPicked } from './index'
 
 export interface IPickerProps {
-  onChange?: () => void
+  columns: string[][]
+  onChange?: (i: number, item: IPicked) => void
 }
 
-const { useState } = React
-const Picker: React.FunctionComponent<IPickerProps> = ({ onChange }) => {
-  const [column, setColumn] = useState(['北京', '上海', '深圳', '广州', '天津', '成都'])
-
+const Picker: React.FunctionComponent<IPickerProps> = ({ onChange, columns }) => {
   return (
     <>
       <div className='picker-content'>
-        <PickerList column={column} />
-        <PickerList column={column} />
+        {
+          columns.map((column, i) => <PickerList column={column} key={i} columnIndex={i} onChange={onChange} />)
+        }
         <div className='picker-panel-mask' />
         <div className='picker-picked-item' />
       </div>

@@ -1,12 +1,15 @@
 import * as React from 'react'
+import noop from '../noop'
 import PickerItem from './PickerItem'
+import { IPicked } from '../index'
 import './style.less'
 
 const { useState, useRef } = React
 
 interface IPickerListPrips {
+  columnIndex: number
   column: string[]
-  onChange?: (r: string, i: number) => void
+  onChange?: (i: number, item: IPicked) => void
 }
 
 const itemHeight = 44
@@ -23,7 +26,7 @@ const limitRange = (n: number, min: number, max: number): number => {
   return n
 }
 
-const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChange }) => {
+const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChange, columnIndex }) => {
   // 移动时候最小, 最大范围
   const minIndex = 3 - column.length
   const maxIndex = 2
@@ -46,7 +49,12 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
     if (moveIndex !== index) {
       // 换成正常的数组索引
       const arrIndex = 2 - moveIndex
-      console.log(column[arrIndex], arrIndex)
+      if (onChange) {
+        onChange(columnIndex, {
+          picked: column[arrIndex],
+          index: arrIndex,
+        })
+      }
     }
 
     setIndex(moveIndex)
@@ -77,6 +85,10 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
       </ul>
     </div>
   )
+}
+
+PickerList.defaultProps = {
+  onChange: noop,
 }
 
 export default PickerList

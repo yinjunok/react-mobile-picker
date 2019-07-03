@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { IPicked } from './index'
 
 export interface IHeaderProps {
   title?: React.ReactNode

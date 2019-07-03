@@ -11,6 +11,7 @@
     "jsx-no-lambda": false,
     "object-literal-sort-keys": false,
     "react-hooks-nesting": "error",
-    "semicolon": [true, "never"]
+    "semicolon": [true, "never"],
+    "jsx-curly-spacing": {"when": "always", "children": {"when": "never"}}
   }
 }
