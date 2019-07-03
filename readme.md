@@ -25,6 +25,5 @@ const puppeteer = require('puppeteer');
 
 ## TODO
 
-- [x] 复制状态
 - [ ] 单元测试
 - [ ] 使用文档
