@@ -27,7 +27,6 @@
   height: 44px;
   line-height: 44px;
   justify-content: space-between;
-  // border-bottom: 1px solid #efefef;
 
   &::after {
     #bordered();
@@ -130,4 +129,23 @@
   height: 220px;
   overflow: hidden;
   padding: 0 5px;
+}
+
+.picker-loading-icon {
+  fill: rgb(25, 137, 250);
+  height: 36px;
+  width: 36px;
+}
+
+.picker-loading-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+  background: rgba(255, 255, 255, .9)
 }

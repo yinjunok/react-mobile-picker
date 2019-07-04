@@ -4,6 +4,7 @@ import SlidePanel from './SlidePanel'
 import Picker from './Picker'
 import Header from './Header'
 import { noop } from './utils'
+import Loading from './Loading'
 import './style.less'
 
 const { useState, useEffect } = React
@@ -20,6 +21,7 @@ interface IReactMobilePickProps {
   onConfirm: (picked: IPicked[]) => void
 
   show?: boolean
+  loading?: boolean
   title?: React.ReactNode
   cancelText?: string
   confirmText?: string
@@ -28,6 +30,7 @@ interface IReactMobilePickProps {
 function ReactMobilePick({
   show,
   title,
+  loading,
   columns,
   onChange,
   onCancel,
@@ -70,6 +73,7 @@ function ReactMobilePick({
           {title}
         </Header>
         <Picker onChange={pickedChange} columns={columns} />
+        {loading && <Loading />}
       </SlidePanel>
       <Mask show={show as boolean} onCancel={onCancel} />
     </>
@@ -79,6 +83,7 @@ function ReactMobilePick({
 ReactMobilePick.defaultProps = {
   show: false,
   title: null,
+  loading: true,
   onChange: noop,
   onCancel: noop,
   onConfirm: noop,

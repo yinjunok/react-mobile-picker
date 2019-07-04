@@ -12,17 +12,17 @@ import ReactMobilePick from '../src/index'
 
 class App extends React.Component {
   public state = {
+    loading: false,
     show: true,
     picked: [],
     changePicked: [],
     columns: [
       ['湖北', '湖南', '广州', '广西', '福建'],
-      ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚'],
     ],
   }
 
   public render() {
-    const { show, columns, picked, changePicked } = this.state
+    const { show, columns, picked, changePicked, loading } = this.state
 
     return (
       <div className='demo'>
@@ -36,6 +36,7 @@ class App extends React.Component {
         }
         <ReactMobilePick
           show={show}
+          loading={loading}
           columns={columns}
           onCancel={this.hide}
           onConfirm={this.confirm}
@@ -46,9 +47,19 @@ class App extends React.Component {
   }
 
   private onChange = (changePicked) => {
-    this.setState({
-      changePicked,
-    })
+    setTimeout(() => {
+      this.setState({
+        loading: true,
+        changePicked,
+      })
+
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+          columns: [...this.state.columns, ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚']],
+        })
+      }, 3000)
+    }, 3000)
   }
 
   private hide = () => {
