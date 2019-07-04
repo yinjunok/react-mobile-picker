@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { IPicked } from './index'
 
 export interface IHeaderProps {
   title?: React.ReactNode
@@ -22,11 +21,5 @@ const Header: React.FunctionComponent<IHeaderProps> = ({
     <button className='picker-button' onClick={onConfirm}>{confirmText}</button>
   </div>
 )
-
-Header.defaultProps = {
-  title: null,
-  cancelText: '取消',
-  confirmText: '确定',
-}
 
 export default Header

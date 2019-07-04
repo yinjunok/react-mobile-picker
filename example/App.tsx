@@ -12,8 +12,9 @@ import ReactMobilePick from '../src/index'
 
 class App extends React.Component {
   public state = {
-    show: false,
+    show: true,
     picked: [],
+    changePicked: [],
     columns: [
       ['湖北', '湖南', '广州', '广西', '福建'],
       ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚'],
@@ -21,7 +22,7 @@ class App extends React.Component {
   }
 
   public render() {
-    const { show, columns, picked } = this.state
+    const { show, columns, picked, changePicked } = this.state
 
     return (
       <div className='demo'>
@@ -29,14 +30,25 @@ class App extends React.Component {
         {
           <pre>{JSON.stringify(picked, null, 2)}</pre>
         }
+
+        {
+          <pre>{JSON.stringify(changePicked, null, 2)}</pre>
+        }
         <ReactMobilePick
           show={show}
           columns={columns}
           onCancel={this.hide}
           onConfirm={this.confirm}
+          onChange={this.onChange}
         />
       </div>
     )
+  }
+
+  private onChange = (changePicked) => {
+    this.setState({
+      changePicked,
+    })
   }
 
   private hide = () => {

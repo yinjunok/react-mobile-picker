@@ -8,13 +8,14 @@
     "tsc": "tsc",
     "dev": "webpack-dev-server --config webpack.dev.config.js --open",
     "types": "tsc -d --emitDeclarationOnly --allowJs false --noEmit false --isolatedModules false --declarationDir ./@types",
-    "build": "webpack --config webpack.build.config.js",
+    "build": "webpack --config webpack.build.config.js && npm run types",
     "test": "jest --watch",
     "dll": "webpack --config webpack.dll.config.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@hot-loader/react-dom": "^16.8.6",
+    "clean-webpack-plugin": "^3.0.0",
     "core-js": "^2.6.9",
     "react-spring": "^8.0.27"
   },

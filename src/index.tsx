@@ -1,12 +1,12 @@
 import * as React from 'react'
 import Mask from './Mask'
-import Panel from './Panel'
+import SlidePanel from './SlidePanel'
 import Picker from './Picker'
 import Header from './Header'
-import noop from './noop'
+import { noop } from './utils'
 import './style.less'
 
-const { useState } = React
+const { useState, useEffect } = React
 
 export interface IPicked {
   picked: string
@@ -14,12 +14,15 @@ export interface IPicked {
 }
 
 interface IReactMobilePickProps {
-  show?: boolean
-  title?: React.ReactNode
-  onChange: () => void
+  columns: string[][]
+  onChange: (picked: IPicked[]) => void
   onCancel: () => void
   onConfirm: (picked: IPicked[]) => void
-  columns: string[][]
+
+  show?: boolean
+  title?: React.ReactNode
+  cancelText?: string
+  confirmText?: string
 }
 
 function ReactMobilePick({
@@ -29,6 +32,8 @@ function ReactMobilePick({
   onChange,
   onCancel,
   onConfirm,
+  cancelText,
+  confirmText,
 }: IReactMobilePickProps) {
   const [picked, setPicked] = useState<IPicked[]>(() => {
     const result: IPicked[] = []
@@ -49,16 +54,23 @@ function ReactMobilePick({
     setPicked(tempPicked)
   }
 
+  useEffect(() => {
+    onChange(picked)
+  }, [picked])
+
   return (
     <>
-      <Panel show={show as boolean}>
-        <>
-          <Header onCancel={onCancel} onConfirm={() => onConfirm(picked)}>
-            {title}
-          </Header>
-          <Picker onChange={pickedChange} columns={columns} />
-        </>
-      </Panel>
+      <SlidePanel show={show as boolean}>
+        <Header
+          onCancel={onCancel}
+          cancelText={cancelText}
+          confirmText={confirmText}
+          onConfirm={() => onConfirm(picked)}
+        >
+          {title}
+        </Header>
+        <Picker onChange={pickedChange} columns={columns} />
+      </SlidePanel>
       <Mask show={show as boolean} onCancel={onCancel} />
     </>
   )
@@ -66,10 +78,12 @@ function ReactMobilePick({
 
 ReactMobilePick.defaultProps = {
   show: false,
-  title: '标题',
+  title: null,
   onChange: noop,
   onCancel: noop,
   onConfirm: noop,
+  cancelText: '取消',
+  confirmText: '确定',
 }
 
 export default ReactMobilePick

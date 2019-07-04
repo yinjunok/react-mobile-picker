@@ -1,5 +1,5 @@
 import * as React from 'react'
-import PickerList from './PickerList/PickerList'
+import PickerList from './PickerList'
 import { IPicked } from './index'
 
 export interface IPickerProps {

@@ -5,7 +5,7 @@ interface IPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   show: boolean
 }
 
-const Panel: React.FunctionComponent<IPanelProps> = ({ show, children }) => {
+const SlidePanel: React.FunctionComponent<IPanelProps> = ({ show, children }) => {
   const transitions = useTransition(show, null, {
     from: { transform: 'translate3d(0, 100%, 0)' },
     enter: { transform: 'translate3d(0, 0, 0)' },
@@ -24,4 +24,4 @@ const Panel: React.FunctionComponent<IPanelProps> = ({ show, children }) => {
   )
 }
 
-export default Panel
+export default SlidePanel

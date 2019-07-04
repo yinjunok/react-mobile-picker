@@ -1,8 +1,6 @@
 import * as React from 'react'
-import noop from '../noop'
-import PickerItem from './PickerItem'
-import { IPicked } from '../index'
-import './style.less'
+import { noop, limitRange } from './utils'
+import { IPicked } from './index'
 
 const { useState, useRef } = React
 
@@ -14,26 +12,13 @@ interface IPickerListPrips {
 
 const itemHeight = 44
 
-const limitRange = (n: number, min: number, max: number): number => {
-  if (n < min) {
-    return min
-  }
-
-  if (n > max) {
-    return max
-  }
-
-  return n
-}
-
 const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChange, columnIndex }) => {
-  // 移动时候最小, 最大范围
-  const minIndex = 3 - column.length
-  const maxIndex = 2
-
+  // 触碰开始的起始点
   const startTouchPoint = useRef<number>(0)
+  // 手指滑动的距离
   const [move, setMove] = useState<number>(0)
-  const [index, setIndex] = useState<number>(maxIndex)
+  // 选中的选项索引, 因为
+  const [index, setIndex] = useState<number>(0)
 
   const onTouchStart = (e: React.TouchEvent) => {
     startTouchPoint.current = e.touches[0].clientY
@@ -43,16 +28,16 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
     setMove(e.touches[0].clientY - startTouchPoint.current)
   }
 
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const i = Math.round((itemHeight * index + move) / itemHeight)
-    const moveIndex = limitRange(i, minIndex, maxIndex)
+  const onTouchEnd = () => {
+    const i = Math.round(computedDiss() / itemHeight)
+    let moveIndex = limitRange(i, -column.length + 1, 0)
+    moveIndex = moveIndex === 0 ? 0 : -moveIndex
+
     if (moveIndex !== index) {
-      // 换成正常的数组索引
-      const arrIndex = 2 - moveIndex
       if (onChange) {
         onChange(columnIndex, {
-          picked: column[arrIndex],
-          index: arrIndex,
+          picked: column[moveIndex],
+          index: moveIndex,
         })
       }
     }
@@ -60,6 +45,10 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
     setIndex(moveIndex)
     setMove(0)
     startTouchPoint.current = 0
+  }
+
+  const computedDiss = () => {
+    return itemHeight * -index + move
   }
 
   return (
@@ -72,14 +61,14 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
       <ul
         className='picker-list'
         style={{
-          transform: `translate3d(0, ${itemHeight * index + move}px, 0)`,
+          transform: `translate3d(0, ${computedDiss()}px, 0)`,
           transitionDuration: `${move !== 0 ? '0ms' : '200ms'}`,
           transitionProperty: `${move !== 0 ? 'none' : 'transform'}`,
         }}
       >
         {
-          column.map((item, i) => (
-            <PickerItem key={i}>{item}</PickerItem>
+          column.map((item) => (
+            <li key={item} className='picker-item'>{item}</li>
           ))
         }
       </ul>

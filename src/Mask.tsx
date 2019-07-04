@@ -1,6 +1,6 @@
 import React from 'react'
 import { animated, useTransition } from 'react-spring'
-import noop from './noop'
+import { noop } from './utils'
 
 interface IMaskProps {
   show: boolean
