@@ -18,6 +18,7 @@ class App extends React.Component {
     changePicked: [],
     columns: [
       ['湖北', '湖南', '广州', '广西', '福建'],
+      ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚'],
     ],
   }
 
@@ -36,7 +37,7 @@ class App extends React.Component {
         }
         <ReactMobilePick
           show={show}
-          loading={loading}
+          // loading={loading}
           columns={columns}
           onCancel={this.hide}
           onConfirm={this.confirm}
@@ -47,19 +48,23 @@ class App extends React.Component {
   }
 
   private onChange = (changePicked) => {
-    setTimeout(() => {
-      this.setState({
-        loading: true,
-        changePicked,
-      })
+    this.setState({
+      loading: true,
+      changePicked,
+    })
+    // setTimeout(() => {
+    //   this.setState({
+    //     loading: true,
+    //     changePicked,
+    //   })
 
-      setTimeout(() => {
-        this.setState({
-          loading: false,
-          columns: [...this.state.columns, ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚']],
-        })
-      }, 3000)
-    }, 3000)
+    //   setTimeout(() => {
+    //     this.setState({
+    //       loading: false,
+    //       columns: [...this.state.columns, ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚']],
+    //     })
+    //   }, 3000)
+    // }, 3000)
   }
 
   private hide = () => {

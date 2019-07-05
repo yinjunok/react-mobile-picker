@@ -7,7 +7,7 @@ import { noop } from './utils'
 import Loading from './Loading'
 import './style.less'
 
-const { useState, useEffect } = React
+const { useState } = React
 
 export interface IPicked {
   picked: string
@@ -55,11 +55,8 @@ function ReactMobilePick({
     const tempPicked = [...picked]
     tempPicked[i] = item
     setPicked(tempPicked)
+    onChange(tempPicked)
   }
-
-  useEffect(() => {
-    onChange(picked)
-  }, [picked])
 
   return (
     <>
@@ -72,7 +69,7 @@ function ReactMobilePick({
         >
           {title}
         </Header>
-        <Picker onChange={pickedChange} columns={columns} />
+        <Picker onChange={pickedChange} columns={columns} picked={picked} />
         {loading && <Loading />}
       </SlidePanel>
       <Mask show={show as boolean} onCancel={onCancel} />
@@ -83,7 +80,7 @@ function ReactMobilePick({
 ReactMobilePick.defaultProps = {
   show: false,
   title: null,
-  loading: true,
+  loading: false,
   onChange: noop,
   onCancel: noop,
   onConfirm: noop,

@@ -2,23 +2,23 @@ import * as React from 'react'
 import { noop, limitRange } from './utils'
 import { IPicked } from './index'
 
-const { useState, useRef } = React
+const { useState, useRef, useEffect } = React
 
 interface IPickerListPrips {
   columnIndex: number
   column: string[]
+  picked: IPicked
   onChange?: (i: number, item: IPicked) => void
 }
 
 const itemHeight = 44
 
-const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChange, columnIndex }) => {
+const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column, onChange, columnIndex }) => {
   // 触碰开始的起始点
+  const index = picked.index
   const startTouchPoint = useRef<number>(0)
   // 手指滑动的距离
   const [move, setMove] = useState<number>(0)
-  // 选中的选项索引, 因为
-  const [index, setIndex] = useState<number>(0)
 
   const onTouchStart = (e: React.TouchEvent) => {
     startTouchPoint.current = e.touches[0].clientY
@@ -42,7 +42,6 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ column, onChang
       }
     }
 
-    setIndex(moveIndex)
     setMove(0)
     startTouchPoint.current = 0
   }
