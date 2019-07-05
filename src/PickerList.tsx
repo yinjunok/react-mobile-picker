@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { noop, limitRange } from './utils'
-import { IPicked } from './index'
+import { IColumnItem } from './index'
 
-const { useState, useRef, useEffect } = React
+const { useState, useRef } = React
 
 interface IPickerListPrips {
   columnIndex: number
   column: string[]
-  picked: IPicked
-  onChange?: (i: number, item: IPicked) => void
+  picked: IColumnItem
+  onChange?: (i: number, item: IColumnItem) => void
 }
 
 const itemHeight = 44

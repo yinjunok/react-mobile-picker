@@ -9,16 +9,23 @@ import './style.less'
 
 const { useState } = React
 
-export interface IPicked {
-  picked: string
-  index: number
+export type TKey = string | number
+export interface IColumnItem {
+  text: string
+  key: TKey
 }
 
+export interface IColumn {
+  defaultKey?: TKey
+  column: IColumnItem[]
+}
+// type TColumn = IColumnItem[]
+
 interface IReactMobilePickProps {
-  columns: string[][]
-  onChange: (picked: IPicked[]) => void
+  columns: IColumn[][]
+  onChange: (picked: IColumnItem[]) => void
   onCancel: () => void
-  onConfirm: (picked: IPicked[]) => void
+  onConfirm: (picked: IColumnItem[]) => void
 
   show?: boolean
   loading?: boolean
@@ -38,20 +45,23 @@ function ReactMobilePick({
   cancelText,
   confirmText,
 }: IReactMobilePickProps) {
-  const [picked, setPicked] = useState<IPicked[]>(() => {
-    const result: IPicked[] = []
-
+  const [picked, setPicked] = useState<IColumnItem[]>(() => {
+    const result: IColumnItem[] = []
     for (const column of columns) {
-      result.push({
-        picked: column[0],
-        index: 0,
-      })
+      for (const c of column) {
+        if (c.defaultKey) {
+          const r = c.column.find((item) => item.key === c.defaultKey)
+          result.push({ ...(r as IColumnItem) })
+        } else {
+          result.push({ ...c.column[0] })
+        }
+      }
     }
 
     return result
   })
 
-  const pickedChange = (i: number, item: IPicked) => {
+  const pickedChange = (i: number, item: IColumnItem) => {
     const tempPicked = [...picked]
     tempPicked[i] = item
     setPicked(tempPicked)
