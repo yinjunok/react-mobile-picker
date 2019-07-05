@@ -4,7 +4,7 @@
 
 1. 不自动下载 Chromium
 ```bash
-yarn add puppeteer --dev --ignore-scripts
+npm install puppeteer --dev --ignore-scripts
 ```
 
 2. 到 https://download-chromium.appspot.com/ 手动下载 chromium
