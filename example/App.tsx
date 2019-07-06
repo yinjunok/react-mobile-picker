@@ -17,8 +17,20 @@ class App extends React.Component {
     picked: [],
     changePicked: [],
     columns: [
-      ['湖北', '湖南', '广州', '广西', '福建'],
-      ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚'],
+      {
+        defaultKey: '上海',
+        column: [
+          { text: '北京', key: '北京' },
+          { text: '上海', key: '上海' },
+        ],
+      },
+      {
+        defaultKey: '北京',
+        column: [
+          { text: '北京', key: '北京' },
+          { text: '上海', key: '上海' },
+        ],
+      },
     ],
   }
 

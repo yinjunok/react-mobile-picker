@@ -9,6 +9,7 @@ module.exports = {
       'react',
       'core-js',
       'react-dom',
+      'react-spring',
       '@babel/polyfill',
     ]
   },

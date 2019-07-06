@@ -22,7 +22,7 @@ export interface IColumn {
 // type TColumn = IColumnItem[]
 
 interface IReactMobilePickProps {
-  columns: IColumn[][]
+  columns: IColumn[]
   onChange: (picked: IColumnItem[]) => void
   onCancel: () => void
   onConfirm: (picked: IColumnItem[]) => void
@@ -48,13 +48,11 @@ function ReactMobilePick({
   const [picked, setPicked] = useState<IColumnItem[]>(() => {
     const result: IColumnItem[] = []
     for (const column of columns) {
-      for (const c of column) {
-        if (c.defaultKey) {
-          const r = c.column.find((item) => item.key === c.defaultKey)
-          result.push({ ...(r as IColumnItem) })
-        } else {
-          result.push({ ...c.column[0] })
-        }
+      if (column.defaultKey) {
+        const r = column.column.find((item) => item.key === column.defaultKey)
+        result.push({ ...(r as IColumnItem) })
+      } else {
+        result.push({ ...column.column[0] })
       }
     }
 

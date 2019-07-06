@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { noop, limitRange } from './utils'
-import { IColumnItem } from './index'
+import { IColumnItem, IColumn } from './index'
 
 const { useState, useRef } = React
 
 interface IPickerListPrips {
   columnIndex: number
-  column: string[]
+  column: IColumn
   picked: IColumnItem
   onChange?: (i: number, item: IColumnItem) => void
 }
@@ -14,8 +14,9 @@ interface IPickerListPrips {
 const itemHeight = 44
 
 const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column, onChange, columnIndex }) => {
+  const index = column.column.findIndex((item) => picked.key === item.key) // picked.index
+  const columnLength = column.column.length
   // 触碰开始的起始点
-  const index = picked.index
   const startTouchPoint = useRef<number>(0)
   // 手指滑动的距离
   const [move, setMove] = useState<number>(0)
@@ -30,15 +31,12 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column,
 
   const onTouchEnd = () => {
     const i = Math.round(computedDiss() / itemHeight)
-    let moveIndex = limitRange(i, -column.length + 1, 0)
+    let moveIndex = limitRange(i, -columnLength + 1, 0)
     moveIndex = moveIndex === 0 ? 0 : -moveIndex
 
     if (moveIndex !== index) {
       if (onChange) {
-        onChange(columnIndex, {
-          picked: column[moveIndex],
-          index: moveIndex,
-        })
+        onChange(columnIndex, {...column.column[moveIndex]})
       }
     }
 
@@ -66,8 +64,8 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column,
         }}
       >
         {
-          column.map((item) => (
-            <li key={item} className='picker-item'>{item}</li>
+          column.column.map((item) => (
+            <li key={item.key} className='picker-item'>{item.text}</li>
           ))
         }
       </ul>

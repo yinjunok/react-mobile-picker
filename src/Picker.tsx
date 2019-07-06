@@ -1,9 +1,9 @@
 import * as React from 'react'
 import PickerList from './PickerList'
-import { IColumnItem } from './index'
+import { IColumnItem, IColumn } from './index'
 
 export interface IPickerProps {
-  columns: string[][]
+  columns: IColumn[]
   picked: IColumnItem[]
   onChange?: (i: number, item: IColumnItem) => void
 }
