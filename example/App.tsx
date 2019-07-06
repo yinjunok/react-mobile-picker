@@ -12,44 +12,51 @@ import ReactMobilePick from '../src/index'
 
 class App extends React.Component {
   public state = {
-    loading: false,
-    show: true,
+    show: false,
     picked: [],
     changePicked: [],
     columns: [
       {
-        defaultKey: '上海',
+        key: 0,
+        defaultKey: '广州',
         column: [
           { text: '北京', key: '北京' },
-          { text: '上海', key: '上海' },
+          { text: '湖南', key: '湖南' },
+          { text: '四川', key: '四川' },
+          { text: '广州', key: '广州' },
         ],
       },
       {
-        defaultKey: '北京',
+        key: 1,
+        defaultKey: '美国',
         column: [
-          { text: '北京', key: '北京' },
-          { text: '上海', key: '上海' },
+          { text: '美国', key: '美国' },
+          { text: '日本', key: '日本' },
+          { text: '俄罗斯', key: '俄罗斯' },
+          { text: '尼日利亚', key: '尼日利亚' },
+          { text: '越南', key: '越南' },
+          { text: '柬埔寨', key: '柬埔寨' },
         ],
       },
     ],
   }
 
   public render() {
-    const { show, columns, picked, changePicked, loading } = this.state
+    const { show, columns, picked, changePicked } = this.state
 
     return (
       <div className='demo'>
         <button onClick={this.show}>显示</button> <br />
+        <p>onConfirm: </p>
         {
           <pre>{JSON.stringify(picked, null, 2)}</pre>
         }
-
+        <p>onChange: </p>
         {
           <pre>{JSON.stringify(changePicked, null, 2)}</pre>
         }
         <ReactMobilePick
           show={show}
-          // loading={loading}
           columns={columns}
           onCancel={this.hide}
           onConfirm={this.confirm}
@@ -61,22 +68,8 @@ class App extends React.Component {
 
   private onChange = (changePicked) => {
     this.setState({
-      loading: true,
       changePicked,
     })
-    // setTimeout(() => {
-    //   this.setState({
-    //     loading: true,
-    //     changePicked,
-    //   })
-
-    //   setTimeout(() => {
-    //     this.setState({
-    //       loading: false,
-    //       columns: [...this.state.columns, ['美国', '日本', '俄罗斯', '法国', '澳大利亚澳大利亚澳大利亚澳大利亚']],
-    //     })
-    //   }, 3000)
-    // }, 3000)
   }
 
   private hide = () => {

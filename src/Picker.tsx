@@ -13,14 +13,15 @@ const Picker: React.FunctionComponent<IPickerProps> = ({ onChange, columns, pick
     <>
       <div className='picker-content'>
         {
-          columns.map((column, i) => (
-            <PickerList
-              key={i}
-              column={column}
-              columnIndex={i}
-              picked={picked[i]}
-              onChange={onChange}
-            />
+          columns.length === picked.length
+          && columns.map((column, i) => (
+              <PickerList
+                key={column.key ? column.key : i}
+                column={column}
+                columnIndex={i}
+                picked={picked[i]}
+                onChange={onChange}
+              />
           ))
         }
         <div className='picker-panel-mask' />

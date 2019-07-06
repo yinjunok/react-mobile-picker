@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { noop, limitRange } from './utils'
-import { IColumnItem, IColumn } from './index'
+import { IColumnItem, IColumn, TKey } from './index'
 
 const { useState, useRef } = React
 
@@ -48,6 +48,13 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column,
     return itemHeight * -index + move
   }
 
+  const clickHandle = (key: TKey) => {
+    const option = column.column.find((item) => item.key === key)
+    if (onChange) {
+      onChange(columnIndex, {...(option as IColumnItem)})
+    }
+  }
+
   return (
     <div
       className='picker-panel'
@@ -65,7 +72,7 @@ const PickerList: React.FunctionComponent<IPickerListPrips> = ({ picked, column,
       >
         {
           column.column.map((item) => (
-            <li key={item.key} className='picker-item'>{item.text}</li>
+            <li key={item.key} onClick={() => clickHandle(item.key)} className='picker-item'>{item.text}</li>
           ))
         }
       </ul>

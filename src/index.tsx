@@ -7,7 +7,7 @@ import { noop } from './utils'
 import Loading from './Loading'
 import './style.less'
 
-const { useState } = React
+const { useState, useEffect } = React
 
 export type TKey = string | number
 export interface IColumnItem {
@@ -16,10 +16,10 @@ export interface IColumnItem {
 }
 
 export interface IColumn {
+  key?: TKey
   defaultKey?: TKey
   column: IColumnItem[]
 }
-// type TColumn = IColumnItem[]
 
 interface IReactMobilePickProps {
   columns: IColumn[]
@@ -45,7 +45,7 @@ function ReactMobilePick({
   cancelText,
   confirmText,
 }: IReactMobilePickProps) {
-  const [picked, setPicked] = useState<IColumnItem[]>(() => {
+  const initPicked = (): IColumnItem[] => {
     const result: IColumnItem[] = []
     for (const column of columns) {
       if (column.defaultKey) {
@@ -57,7 +57,15 @@ function ReactMobilePick({
     }
 
     return result
+  }
+
+  const [picked, setPicked] = useState<IColumnItem[]>(() => {
+    return initPicked()
   })
+
+  useEffect(() => {
+    setPicked(initPicked())
+  }, [columns])
 
   const pickedChange = (i: number, item: IColumnItem) => {
     const tempPicked = [...picked]
