@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PickerList from './PickerList'
 import { IColumnItem, IColumn } from './index'
+import { noop } from './utils'
 
 export interface IPickerProps {
   columns: IColumn[]
@@ -13,8 +14,8 @@ const Picker: React.FunctionComponent<IPickerProps> = ({ onChange, columns, pick
     <>
       <div className='picker-content'>
         {
-          columns.length === picked.length
-          && columns.map((column, i) => (
+          columns.length === picked.length &&
+            columns.map((column, i) => (
               <PickerList
                 key={column.key ? column.key : i}
                 column={column}
@@ -29,6 +30,10 @@ const Picker: React.FunctionComponent<IPickerProps> = ({ onChange, columns, pick
       </div>
     </>
   )
+}
+
+Picker.defaultProps = {
+  onChange: noop,
 }
 
 export default Picker

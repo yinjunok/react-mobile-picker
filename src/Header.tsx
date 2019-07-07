@@ -1,7 +1,7 @@
 import * as React from 'react'
+import { noop } from './utils'
 
 export interface IHeaderProps {
-  title?: React.ReactNode
   cancelText?: string
   confirmText?: string
   onConfirm?: () => void
@@ -21,5 +21,12 @@ const Header: React.FunctionComponent<IHeaderProps> = ({
     <button className='picker-button' onClick={onConfirm}>{confirmText}</button>
   </div>
 )
+
+Header.defaultProps = {
+  cancelText: '取消',
+  confirmText: '确定',
+  onConfirm: noop,
+  onCancel: noop,
+}
 
 export default Header
