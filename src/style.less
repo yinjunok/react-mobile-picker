@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#bordered() {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #ebedf0;
+  transform: scaleY(.5);
+}
+
+.picker-wrapper {
+  position: fixed;
+  background: #fff;
+  z-index: 1001;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.picker-header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  justify-content: space-between;
+
+  &::after {
+    #bordered();
+    bottom: 0;
+  }
+}
+
+.picker-content {
+  position: relative;
+  display: flex;
+  height: 220px;
+  overflow: hidden;
+}
+
+.picker-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background-color: black;
+}
+
+.picker-picked-item {
+  position: absolute;
+  width: 100%;
+  height: 44px;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+
+  &::before {
+    #bordered();
+    top: 0;
+  }
+
+  &::after {
+    #bordered();
+    bottom: 0;
+  }
+}
+
+.picker-panel-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, .4) 40%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 255, 255, .4) 60%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+.picker-button {
+  border: none;
+  padding: 0 15px;
+  color: #1989fa;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+
+  &:active {
+    background-color: #f2f3f5;
+  }
+}
+
+.picker-list {
+  flex: 1 1 auto;
+  list-style: none;
+  position: relative;
+  top: 88px;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.68, 1);
+}
+
+.picker-item {
+  height: 44px;
+  list-style: none;
+  font-size: 16px;
+  line-height: 44px;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+  color: #000;
+}
+
+.picker-panel {
+  position: relative;
+  flex: 1 1;
+  height: 220px;
+  overflow: hidden;
+  padding: 0 5px;
+}
+
+.picker-loading-icon {
+  fill: rgb(25, 137, 250);
+  height: 36px;
+  width: 36px;
+}
+
+.picker-loading-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+  background: rgba(255, 255, 255, .9)
+}

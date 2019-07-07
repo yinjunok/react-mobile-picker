@@ -3,3 +3,4 @@ node_modules/
 package/
 test-img/
 example/
+bundle-analyzer.html

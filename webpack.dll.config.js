@@ -7,7 +7,9 @@ module.exports = {
   entry:  {
     vendor: [
       'react',
+      'core-js',
       'react-dom',
+      'react-spring',
       '@babel/polyfill',
     ]
   },

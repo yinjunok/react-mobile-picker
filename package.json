@@ -8,12 +8,16 @@
     "tsc": "tsc",
     "dev": "webpack-dev-server --config webpack.dev.config.js --open",
     "types": "tsc -d --emitDeclarationOnly --allowJs false --noEmit false --isolatedModules false --declarationDir ./@types",
-    "build": "webpack --config webpack.build.config.js",
+    "build": "webpack --config webpack.build.config.js && npm run types",
     "test": "jest --watch",
     "dll": "webpack --config webpack.dll.config.js"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.2.5"
+    "@babel/polyfill": "^7.2.5",
+    "@hot-loader/react-dom": "^16.8.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "core-js": "^2.6.9",
+    "react-spring": "^8.0.27"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -26,8 +30,8 @@
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.13",
     "@types/puppeteer": "^1.12.2",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11",
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
     "@types/react-hot-loader": "^4.1.0",
     "@types/react-test-renderer": "^16.0.3",
     "@types/react-transition-group": "^2.0.16",
@@ -49,8 +53,8 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.6.0",
     "puppeteer": "^1.18.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.0",
     "react-test-renderer": "^16.8.4",
     "rollup": "^1.12.3",

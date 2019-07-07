@@ -3,5 +3,6 @@ node_modules/*
 .cache-loader/*
 dist/*
 dll/*
+@types/
 lib/
-package-lock.json
+bundle-analyzer.html

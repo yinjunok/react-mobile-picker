@@ -1,4 +1,4 @@
-![运行截图](./snapshot/snapshot.gif)
+![截图](snapshot/snapshot.gif)
 
 ## 备忘 puppeteer 安装
 
