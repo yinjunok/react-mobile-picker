@@ -27,5 +27,6 @@ const puppeteer = require('puppeteer');
 
 ## TODO
 
-- [ ] 单元测试
-- [ ] 使用文档
+- [x] 单元测试
+- [ ] 使用文档. 
+- [ ] 解决多级联动存在的问题
